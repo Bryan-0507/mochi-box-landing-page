@@ -1,6 +1,5 @@
 ---
 import Logo from "./Logo.astro";
-import { Icon } from "astro-icon/components";
 
 const links = [
   { href: "#what-we-will-offer", text: "Oferta" },
@@ -11,22 +10,80 @@ const links = [
 
 <header 
   id="main-header" 
-  class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
-  x-data="{ isOpen: false }"
-  @keydown.escape="isOpen = false"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white shadow-sm"
+  x-data="{
+    isOpen: false,
+    scrolled: false,
+    init() {
+      this.updateHeader();
+      window.addEventListener('scroll', this.updateHeader.bind(this));
+    },
+    updateHeader() {
+      this.scrolled = window.scrollY > 10;
+    },
+    toggle() {
+      this.isOpen = !this.isOpen;
+      document.body.style.overflow = this.isOpen ? 'hidden' : '';
+      document.documentElement.classList.toggle('menu-open', this.isOpen);
+    },
+    close() {
+      this.isOpen = false;
+      document.body.style.overflow = '';
+      document.documentElement.classList.remove('menu-open');
+    },
+    isActiveLink(href) {
+      if (typeof window === 'undefined') return false;
+      const currentPath = window.location.pathname + window.location.hash;
+      return currentPath === href || (href !== '#' && currentPath.endsWith(href));
+    },
+    handleNavClick(event, targetId) {
+      if (window.innerWidth >= 768) {
+        event.preventDefault();
+        const target = document.querySelector(targetId);
+        if (target) {
+          const headerOffset = 80;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+
+          if (history.pushState) {
+            history.pushState(null, null, targetId);
+          } else {
+            location.hash = targetId;
+          }
+        }
+      }
+      this.close();
+    }
+  }"
+  :class="{ 'shadow-md': scrolled }"
+  @scroll.window="updateHeader"
+  @keydown.escape="close()"
 >
   <!-- Mobile backdrop -->
   <div 
-    class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300"
-    :class="{ 'opacity-0 invisible': !isOpen, 'opacity-100 visible': isOpen }"
-    @click="isOpen = false"
+    x-show="isOpen"
+    @click="close()"
+    class="md:hidden fixed inset-0 bg-white/80 z-40 transition-opacity duration-300 backdrop-blur-sm"
+    :class="{ 'opacity-0 invisible': !isOpen, 'opacity-100': isOpen }"
+    x-cloak
+    x-transition:enter="ease-out duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="ease-in duration-200"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
   ></div>
 
   <div class="container flex items-center justify-between h-20 relative z-50">
     <a 
       href="/" 
       class="hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-plum-soft focus-visible:ring-offset-2 rounded-md p-1"
-      @click="isOpen = false"
+      @click="close()"
     >
       <Logo class="h-8" />
       <span class="sr-only">Inicio</span>
@@ -34,16 +91,34 @@ const links = [
     
     <!-- Mobile menu button -->
     <button
-      @click="isOpen = !isOpen"
+      @click="toggle()"
       class="md:hidden p-2 -mr-2 text-carbon/80 hover:text-plum-soft transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-plum-soft rounded-md"
       :aria-expanded="isOpen"
       aria-label="Menú de navegación"
     >
-      <Icon 
-        name="mobile-nav" 
+      <svg 
         class="w-6 h-6 transition-transform duration-300"
         :class="{'rotate-90': isOpen}"
-      />
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor"
+      >
+        <path 
+          x-show="!isOpen"
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          stroke-width="2" 
+          d="M4 6h16M4 12h16M4 18h16"
+        ></path>
+        <path 
+          x-show="isOpen"
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          stroke-width="2" 
+          d="M6 18L18 6M6 6l12 12"
+          class="origin-center"
+        ></path>
+      </svg>
     </button>
 
     <!-- Desktop Navigation -->
@@ -56,7 +131,7 @@ const links = [
           href={link.href} 
           class="relative font-medium text-carbon/80 hover:text-sakura-medium transition-colors group"
           :class="{ 'text-sakura-medium': isActiveLink(link.href) }"
-          @click="handleNavClick($event, '#{link.href}')"
+          @click="handleNavClick($event, link.href)"
         >
           <span class="relative">
             {link.text}
@@ -70,12 +145,11 @@ const links = [
     </nav>
 
     <!-- Mobile Navigation -->
-    <nav 
-      class="md:hidden fixed top-20 right-0 w-64 h-[calc(100vh-5rem)] bg-ivory/95 backdrop-blur-lg transform transition-transform duration-300 ease-in-out z-40 overflow-y-auto"
+    <div 
+      x-show="isOpen"
+      class="md:hidden fixed top-20 right-0 w-full max-w-xs h-[calc(100vh-5rem)] bg-white/95 transform transition-transform duration-300 ease-in-out z-40 overflow-y-auto shadow-lg"
       :class="{ 'translate-x-0': isOpen, 'translate-x-full': !isOpen }"
       x-cloak
-      @click.away="isOpen = false"
-      aria-label="Menú de navegación móvil"
     >
       <div class="flex flex-col p-4 space-y-2">
         {links.map((link) => (
@@ -83,95 +157,56 @@ const links = [
             href={link.href}
             class="block px-4 py-3 text-lg font-medium text-carbon/90 hover:bg-plum-soft/10 hover:text-plum-soft rounded-lg transition-colors"
             :class="{ 'text-plum-soft bg-plum-soft/5': isActiveLink(link.href) }"
-            @click="isOpen = false"
+            @click="close()"
           >
             {link.text}
           </a>
         ))}
       </div>
-    </nav>
+    </div>
   </div>
-
-  <script is:inline>
-    // Check if current URL matches the link
-    function isActiveLink(href) {
-      if (typeof window === 'undefined') return false;
-      const currentPath = window.location.pathname + window.location.hash;
-      return currentPath === href || (href !== '#' && currentPath.endsWith(href));
-    }
-
-    // Handle nav link clicks with smooth scroll
-    function handleNavClick(event, targetId) {
-      if (window.innerWidth >= 768) { // Only for desktop
-        event.preventDefault();
-        const target = document.querySelector(targetId);
-        if (target) {
-          const headerOffset = 80; // Height of header
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-
-          // Update URL without jumping
-          if (history.pushState) {
-            history.pushState(null, null, targetId);
-          } else {
-            location.hash = targetId;
-          }
-        }
-      }
-    }
-
-    // Handle scroll to update active link
-    document.addEventListener('DOMContentLoaded', () => {
-      const header = document.getElementById('main-header');
-      
-      function handleScroll() {
-        // Update header background on scroll
-        if (window.scrollY > 20) {
-          header?.classList.add('bg-ivory/90', 'backdrop-blur-md', 'shadow-md');
-        } else {
-          header?.classList.remove('bg-ivory/90', 'backdrop-blur-md', 'shadow-md');
-        }
-      }
-
-      // Initial check
-      handleScroll();
-      
-      // Throttle scroll events for better performance
-      let isScrolling;
-      window.addEventListener('scroll', () => {
-        window.clearTimeout(isScrolling);
-        isScrolling = setTimeout(handleScroll, 50);
-      }, { passive: true });
-    });
-  </script>
-
-  <style>
-    /* Hide elements with x-cloak while Alpine.js is loading */
-    [x-cloak] { display: none !important; }
-    
-    /* Smooth scroll behavior */
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    /* Focus styles for keyboard navigation */
-    *:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 3px theme('colors.plum-soft/50');
-      border-radius: 0.25rem;
-    }
-    
-    /* Prevents layout shift when scrollbar appears/disappears */
-    @media (min-width: 768px) {
-      html {
-        margin-left: calc(100vw - 100%);
-        margin-right: 0;
-      }
-    }
-  </style>
 </header>
+
+<style>
+  /* Hide elements with x-cloak while Alpine.js is loading */
+  [x-cloak] { display: none !important; }
+  
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* Account for fixed header */
+  }
+  
+  /* Prevents layout shift when scrollbar appears/disappears */
+  @media (min-width: 768px) {
+    html {
+      margin-left: calc(100vw - 100%);
+      margin-right: 0;
+    }
+  }
+  
+  /* Better scrolling on mobile when menu is open */
+  .menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Ensure the header has a solid background */
+  #main-header {
+    background-color: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(8px);
+  }
+  
+  /* Smooth transitions for mobile menu */
+  .mobile-menu-enter-active,
+  .mobile-menu-leave-active {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .mobile-menu-enter-from,
+  .mobile-menu-leave-to {
+    transform: translateX(100%);
+  }
+</style>

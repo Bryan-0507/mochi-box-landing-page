@@ -6,16 +6,18 @@ const siteData = {
   title: "Mochibox (Concepto) - Postres y bebidas japonesas",
   description:
     "Explora el concepto de Mochibox: máquinas expendedoras de postres y bebidas japonesas 24/7. Una idea para tus antojos, con un toque cultural.",
+  baseUrl: import.meta.env.BASE_URL || '/',
 };
 
 const { title = siteData.title, description = siteData.description } =
   Astro.props;
 ---
 
+<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${siteData.baseUrl}favicon.svg`} />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
@@ -26,6 +28,8 @@ const { title = siteData.title, description = siteData.description } =
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Zen+Maru+Gothic:wght@700&family=Noto+Serif+JP:wght@700&display=swap"
       rel="stylesheet"
     />
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>{title}</title>
     <style>
       .section-animated {
@@ -37,6 +41,7 @@ const { title = siteData.title, description = siteData.description } =
         opacity: 1;
         transform: translateY(0);
       }
+      [x-cloak] { display: none !important; }
     </style>
   </head>
   <body class="bg-ivory text-carbon font-sans leading-relaxed">
@@ -44,22 +49,19 @@ const { title = siteData.title, description = siteData.description } =
     <slot />
     <Footer />
     <script>
+      // Intersection Observer for animations
       const sections = document.querySelectorAll('section');
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
-            // Optional: unobserve after animation
-            // observer.unobserve(entry.target);
           }
         });
       }, {
-        threshold: 0.1 // Trigger when 10% of the element is visible
+        threshold: 0.1
       });
 
       sections.forEach(section => {
-        section.classList.add('section-animated');
         observer.observe(section);
       });
     </script>
