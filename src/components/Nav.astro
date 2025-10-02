@@ -6,60 +6,63 @@ const links = [
   { href: "#how-it-will-work", text: "Cómo funciona" },
   { href: "#products", text: "Productos" },
 ];
+
+// Alpine.js data object as a string to avoid TypeScript parsing issues
+const alpineData = `{
+  isOpen: false,
+  scrolled: false,
+  init() {
+    this.updateHeader();
+    window.addEventListener('scroll', this.updateHeader.bind(this));
+  },
+  updateHeader() {
+    this.scrolled = window.scrollY > 10;
+  },
+  toggle() {
+    this.isOpen = !this.isOpen;
+    document.body.style.overflow = this.isOpen ? 'hidden' : '';
+    document.documentElement.classList.toggle('menu-open', this.isOpen);
+  },
+  close() {
+    this.isOpen = false;
+    document.body.style.overflow = '';
+    document.documentElement.classList.remove('menu-open');
+  },
+  isActiveLink(href) {
+    if (typeof window === 'undefined') return false;
+    const currentPath = window.location.pathname + window.location.hash;
+    return currentPath === href || (href !== '#' && currentPath.endsWith(href));
+  },
+  handleNavClick(event, targetId) {
+    if (window.innerWidth >= 768) {
+      event.preventDefault();
+      const target = document.querySelector(targetId);
+      if (target) {
+        const headerOffset = 80;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+
+        if (history.pushState) {
+          history.pushState(null, null, targetId);
+        } else {
+          location.hash = targetId;
+        }
+      }
+    }
+    this.close();
+  }
+}`;
 ---
 
 <header 
   id="main-header" 
   class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white shadow-sm"
-  x-data="{
-    isOpen: false,
-    scrolled: false,
-    init() {
-      this.updateHeader();
-      window.addEventListener('scroll', this.updateHeader.bind(this));
-    },
-    updateHeader() {
-      this.scrolled = window.scrollY > 10;
-    },
-    toggle() {
-      this.isOpen = !this.isOpen;
-      document.body.style.overflow = this.isOpen ? 'hidden' : '';
-      document.documentElement.classList.toggle('menu-open', this.isOpen);
-    },
-    close() {
-      this.isOpen = false;
-      document.body.style.overflow = '';
-      document.documentElement.classList.remove('menu-open');
-    },
-    isActiveLink(href) {
-      if (typeof window === 'undefined') return false;
-      const currentPath = window.location.pathname + window.location.hash;
-      return currentPath === href || (href !== '#' && currentPath.endsWith(href));
-    },
-    handleNavClick(event, targetId) {
-      if (window.innerWidth >= 768) {
-        event.preventDefault();
-        const target = document.querySelector(targetId);
-        if (target) {
-          const headerOffset = 80;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-
-          if (history.pushState) {
-            history.pushState(null, null, targetId);
-          } else {
-            location.hash = targetId;
-          }
-        }
-      }
-      this.close();
-    }
-  }"
+  x-data={alpineData}
   x-bind:class="{ 'shadow-md': scrolled }"
   x-on:scroll.window="updateHeader"
   x-on:keydown.escape="close()"
