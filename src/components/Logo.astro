@@ -1,0 +1,34 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+<svg
+  class={className}
+  viewBox="0 0 180 40"
+  width="180"
+  height="40"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="Mochibox Logo"
+  preserveAspectRatio="xMinYMid meet"
+>
+  <style>
+    .logo-text {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      fill: #4A4A4A; /* carbon */
+      dominant-baseline: middle;
+    }
+  </style>
+  <g transform="translate(0, 10)">
+    <!-- Mochi character -->
+    <path d="M 5,10 A 15,15 0,0,1 35,10 Z" fill="#F7C5CC" />
+    <circle cx="14" cy="8" r="1.5" fill="#4A4A4A" />
+    <circle cx="26" cy="8" r="1.5" fill="#4A4A4A" />
+    <path d="M 16 15 Q 20 19 24 15" stroke="#4A4A4A" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  </g>
+  <text x="42" y="22" class="logo-text">Mochibox</text>
+</svg>

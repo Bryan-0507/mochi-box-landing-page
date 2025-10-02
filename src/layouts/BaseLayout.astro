@@ -3,16 +3,16 @@ import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 
 const siteData = {
-  title: "Coffee Website",
+  title: "Mochibox (Concepto) - Postres y bebidas japonesas",
   description:
-    "Discover the perfect brew at our coffee website! Explore premium beans, brewing tips, and accessories for an exceptional coffee experience. Join us today!",
+    "Explora el concepto de Mochibox: máquinas expendedoras de postres y bebidas japonesas 24/7. Una idea para tus antojos, con un toque cultural.",
 };
 
 const { title = siteData.title, description = siteData.description } =
   Astro.props;
 ---
 
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -23,14 +23,45 @@ const { title = siteData.title, description = siteData.description } =
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,400;0,600;1,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Zen+Maru+Gothic:wght@700&family=Noto+Serif+JP:wght@700&display=swap"
       rel="stylesheet"
     />
     <title>{title}</title>
+    <style>
+      .section-animated {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .section-animated.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
-  <body class="max-w-[2000px] mx-auto text-text">
+  <body class="bg-ivory text-carbon font-sans leading-relaxed">
     <Nav />
     <slot />
     <Footer />
+    <script>
+      const sections = document.querySelectorAll('section');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            // Optional: unobserve after animation
+            // observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible
+      });
+
+      sections.forEach(section => {
+        section.classList.add('section-animated');
+        observer.observe(section);
+      });
+    </script>
   </body>
 </html>

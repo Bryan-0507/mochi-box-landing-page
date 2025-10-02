@@ -8,7 +8,16 @@ import db from "@astrojs/db";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), tailwind(), icon(), db()],
+  integrations: [
+    react(), 
+    tailwind(), 
+    icon({
+      include: {
+        'lucide': ['*']
+      }
+    }), 
+    db()
+  ],
   output: "hybrid",
   adapter: netlify()
 });

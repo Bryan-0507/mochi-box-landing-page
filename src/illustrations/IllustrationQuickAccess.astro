@@ -1,0 +1,98 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<svg class={`${className} group`} viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .bounce {
+      animation: bounce 3s ease-in-out infinite;
+    }
+    .bounce-delay-1 {
+      animation-delay: 0.3s;
+    }
+    .bounce-delay-2 {
+      animation-delay: 0.6s;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+    .vending-lights {
+      animation: vendingLights 8s linear infinite;
+    }
+    @keyframes vendingLights {
+      0%, 100% { opacity: 0.8; }
+      25% { opacity: 0.9; }
+      50% { opacity: 0.7; }
+      75% { opacity: 0.9; }
+    }
+  </style>
+  
+  <!-- Background with subtle gradient -->
+  <defs>
+    <radialGradient id="vendingGradient" cx="0" cy="0" r="1" gradientTransform="translate(64 64) rotate(90) scale(60)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8F4FF"/>
+      <stop offset="1" stop-color="#D6E9FF"/>
+    </radialGradient>
+    
+    <linearGradient id="screenGradient" x1="48" y1="44" x2="80" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8F4FF"/>
+      <stop offset="1" stop-color="#D6E9FF"/>
+    </linearGradient>
+  </defs>
+  
+  <circle cx="64" cy="64" r="60" fill="url(#vendingGradient)" class="group-hover:opacity-90 transition-opacity duration-300"/>
+  
+  <!-- Vending machine body -->
+  <g class="group-hover:-translate-y-1 transition-transform duration-300">
+    <rect x="34" y="30" width="60" height="80" rx="8" fill="#FFB6C1" class="group-hover:fill-[#FF9EBB] transition-colors duration-300"/>
+    <rect x="40" y="36" width="48" height="68" rx="4" fill="white" class="group-hover:fill-[#FFF9FB] transition-colors duration-300"/>
+  </g>
+  
+  <!-- Screen with animation -->
+  <rect x="48" y="44" width="32" height="20" rx="2" fill="url(#screenGradient)" class="vending-lights"/>
+  
+  <!-- Animated treats in vending machine -->
+  <g class="bounce">
+    <circle cx="52" cy="54" r="6" fill="#FF9EBB" class="group-hover:fill-[#FF85A8] transition-colors duration-300"/>
+  </g>
+  <g class="bounce bounce-delay-1">
+    <circle cx="64" cy="54" r="6" fill="#B5EAD7" class="group-hover:fill-[#A5D9C8] transition-colors duration-300"/>
+  </g>
+  <g class="bounce bounce-delay-2">
+    <circle cx="76" cy="54" r="6" fill="#C7CEEA" class="group-hover:fill-[#B7BED8] transition-colors duration-300"/>
+  </g>
+  
+  <!-- Buttons with hover effect -->
+  <g class="group-hover:scale-105 transition-transform duration-300">
+    <circle cx="52" cy="90" r="8" fill="#FF9EBB" class="group-hover:fill-[#FF85A8] transition-colors duration-300"/>
+    <circle cx="64" cy="90" r="8" fill="#B5EAD7" class="group-hover:fill-[#A5D9C8] transition-colors duration-300"/>
+    <circle cx="76" cy="90" r="8" fill="#C7CEEA" class="group-hover:fill-[#B7BED8] transition-colors duration-300"/>
+    
+    <!-- Button icons -->
+    <text x="52" y="94" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">A</text>
+    <text x="64" y="94" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">B</text>
+    <text x="76" y="94" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">C</text>
+  </g>
+  
+  <!-- Decorative elements -->
+  <g class="opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+    <path d="M30 40L32 42L34 40L32 38L30 40Z" fill="#FF9EBB" class="pulse"/>
+    <path d="M100 90L102 92L104 90L102 88L100 90Z" fill="#B5EAD7" class="pulse" style="animation-delay: 0.3s"/>
+    <path d="M40 100L42 102L44 100L42 98L40 100Z" fill="#C7CEEA" class="pulse" style="animation-delay: 0.6s"/>
+  </g>
+  
+  <!-- Shine effect on hover -->
+  <circle cx="64" cy="64" r="60" fill="white" fill-opacity="0" 
+          class="group-hover:fill-opacity-5 transition-all duration-700" 
+          style="mix-blend-mode: overlay"/>
+</svg>

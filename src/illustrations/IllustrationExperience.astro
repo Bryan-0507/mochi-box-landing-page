@@ -1,0 +1,77 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<svg class={`${className} group`} viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+    .float-delay-1 {
+      animation-delay: 0.5s;
+    }
+    .float-delay-2 {
+      animation-delay: 1s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .spin {
+      animation: spin 20s linear infinite;
+      transform-origin: center;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+  
+  <!-- Background circle with subtle gradient -->
+  <defs>
+    <radialGradient id="bgGradient" cx="0" cy="0" r="1" gradientTransform="translate(64 64) rotate(90) scale(60)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE6ED"/>
+      <stop offset="1" stop-color="#FFD1E0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="64" cy="64" r="60" fill="url(#bgGradient)" class="group-hover:opacity-90 transition-opacity duration-300"/>
+  
+  <!-- Main dango character -->
+  <g class="float">
+    <circle cx="64" cy="60" r="30" fill="#FFE4E1" class="group-hover:fill-[#FFD8D2] transition-colors duration-300"/>
+    
+    <!-- Dango stack -->
+    <circle cx="64" cy="80" r="10" fill="#FFF5EE" class="group-hover:fill-[#FFF9F5] transition-colors duration-300"/>
+    <circle cx="64" cy="70" r="12" fill="#FFB6C1" class="group-hover:fill-[#FF9EBB] transition-colors duration-300"/>
+    
+    <!-- Decorative elements -->
+    <circle cx="54" cy="64" r="2" fill="#FF9EBB" class="group-hover:opacity-80 transition-opacity duration-300"/>
+    <circle cx="74" cy="64" r="2" fill="#B5EAD7" class="group-hover:opacity-80 transition-opacity duration-300"/>
+    <circle cx="64" cy="54" r="2" fill="#C7CEEA" class="group-hover:opacity-80 transition-opacity duration-300"/>
+  </g>
+  
+  <!-- Dango stick -->
+  <rect x="60" y="90" width="8" height="20" rx="2" fill="#8B4513" class="group-hover:rotate-1 transition-transform duration-300"/>
+  
+  <!-- Floating cherry blossoms -->
+  <g class="float float-delay-1">
+    <path d="M30 40L32 42L30 44L28 42L30 40Z" fill="#FFB6C1" class="group-hover:fill-[#FF9EBB] transition-colors duration-300"/>
+    <path d="M100 50L102 52L100 54L98 52L100 50Z" fill="#B5EAD7" class="group-hover:fill-[#A5D9C8] transition-colors duration-300"/>
+    <path d="M40 100L42 102L40 104L38 102L40 100Z" fill="#C7CEEA" class="group-hover:fill-[#B7BED8] transition-colors duration-300"/>
+  </g>
+  
+  <!-- Sparkles with animation -->
+  <g class="spin opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+    <path d="M25 30L27 32L29 30L27 28L25 30Z" fill="#FFD700" class="group-hover:fill-[#FFC000] transition-colors duration-300"/>
+    <path d="M100 90L102 92L104 90L102 88L100 90Z" fill="#FFD700" class="group-hover:fill-[#FFC000] transition-colors duration-300"/>
+  </g>
+  
+  <!-- Floating dots animation -->
+  <g class="float float-delay-2">
+    <circle cx="20" cy="70" r="1.5" fill="#FF9EBB" class="group-hover:opacity-70 transition-opacity duration-300"/>
+    <circle cx="110" cy="80" r="1.5" fill="#B5EAD7" class="group-hover:opacity-70 transition-opacity duration-300"/>
+    <circle cx="90" cy="30" r="1.5" fill="#C7CEEA" class="group-hover:opacity-70 transition-opacity duration-300"/>
+  </g>
+</svg>

@@ -1,0 +1,111 @@
+---
+import IllustrationMochi from '../illustrations/IllustrationMochi.astro';
+import IllustrationDango from '../illustrations/IllustrationDango.astro';
+import IllustrationCheesecake from '../illustrations/IllustrationCheesecake.astro';
+import IllustrationRamune from '../illustrations/IllustrationRamune.astro';
+import IllustrationMatcha from '../illustrations/IllustrationMatcha.astro';
+import IllustrationIcedCoffee from '../illustrations/IllustrationIcedCoffee.astro';
+
+const products = [
+  {
+    component: IllustrationMochi,
+    name: "Mochi (varios sabores)",
+    description: "Suaves y dulces bolas de arroz rellenas de deliciosos sabores tradicionales.",
+    colors: "from-pink-100 to-pink-200"
+  },
+  {
+    component: IllustrationDango,
+    name: "Dango",
+    description: "Bolitas de arroz dulce en brocheta, una delicia tradicional japonesa.",
+    colors: "from-purple-100 to-purple-200"
+  },
+  {
+    component: IllustrationCheesecake,
+    name: "Japanese Cheesecake",
+    description: "Suave y esponjoso pastel de queso al estilo japonés.",
+    colors: "from-yellow-50 to-yellow-100"
+  },
+  {
+    component: IllustrationRamune,
+    name: "Gaseosas Japonesas",
+    description: "Refrescante bebida carbonatada japonesa con su icónica inspirada en algunos de tus personajes favoritos.",
+    colors: "from-blue-50 to-blue-100"
+  },
+  {
+    component: IllustrationMatcha,
+    name: "Té Matcha",
+    description: "Tradicional té verde japonés molido, rico en antioxidantes y sabor.",
+    colors: "from-green-50 to-green-100"
+  },
+  {
+    component: IllustrationIcedCoffee,
+    name: "Café frío",
+    description: "Refrescante café helado con leche y un toque de vainilla o caramelo.",
+    colors: "from-amber-50 to-amber-100"
+  },
+];
+---
+
+<section id="products" class="py-20 md:py-28 bg-gradient-to-b from-white to-plum-soft/5">
+  <div class="container">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-plum-soft mb-4">
+        Nuestros Productos
+      </h2>
+      <p class="text-lg text-carbon/80">
+        Descubre nuestra selección de delicias japonesas y bebidas refrescantes
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {products.map((product, index) => (
+        <div class="group relative h-full">
+          <!-- Decorative background on hover -->
+          <div class={`absolute -inset-1 bg-gradient-to-r from-plum-soft/10 to-sakura-medium/10 rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-300`}></div>
+          
+          <div class="relative bg-white p-6 rounded-2xl h-full flex flex-col items-center text-center border border-plum-soft/10 hover:border-plum-soft/30 transition-all duration-300 hover:-translate-y-1">
+            <!-- Illustration with gradient background -->
+            <div class={`w-32 h-32 mb-6 flex items-center justify-center rounded-full bg-gradient-to-br ${product.colors} p-2`}>
+              <product.component class="w-full h-full" />
+            </div>
+            
+            <!-- Content -->
+            <h3 class="text-xl font-bold text-carbon mb-2 group-hover:text-plum-soft transition-colors">
+              {product.name}
+            </h3>
+            <p class="text-carbon/70 text-sm mb-4">
+              {product.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Staggered animations for product cards */
+  .product-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Apply staggered delays */
+  .product-card:nth-child(1) { animation-delay: 0.1s; }
+  .product-card:nth-child(2) { animation-delay: 0.2s; }
+  .product-card:nth-child(3) { animation-delay: 0.3s; }
+  .product-card:nth-child(4) { animation-delay: 0.4s; }
+  .product-card:nth-child(5) { animation-delay: 0.5s; }
+  .product-card:nth-child(6) { animation-delay: 0.6s; }
+</style>

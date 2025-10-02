@@ -1,0 +1,75 @@
+---
+const steps = [
+  {
+    number: "1",
+    icon: "📱",
+    title: "Elige tu postre/bebida",
+    description: "Selecciona en la pantalla táctil lo que más te apetezca."
+  },
+  {
+    number: "2",
+    icon: "💳",
+    title: "Paga de forma digital",
+    description: "Pago contactless rápido y seguro."
+  },
+  {
+    number: "3",
+    icon: "🎉",
+    title: "Disfruta al instante",
+    description: "Recoge tu antojo japonés y disfrútalo."
+  }
+];
+---
+
+<section class="py-16 md:py-24 bg-white">
+  <div class="container px-4">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-carbon mb-4">
+        ¿Cómo <span class="text-vermillion">funciona</span>?
+      </h2>
+      <p class="text-lg text-carbon/70 max-w-2xl mx-auto">
+        Tres pasos simples para disfrutar de tus postres y bebidas favoritas
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto relative">
+      <!-- Connecting line for desktop -->
+      <div class="hidden md:block absolute top-20 left-0 right-0 h-1 bg-gradient-to-r from-vermillion via-sakura to-matcha -z-10"></div>
+      
+      {steps.map((step, index) => (
+        <div class="relative">
+          <div class="flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-vermillion text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-lg relative z-10">
+              {step.number}
+            </div>
+            <div class="text-6xl mb-4">
+              {step.icon}
+            </div>
+            <h3 class="text-xl font-display font-semibold text-carbon mb-2">
+              {step.title}
+            </h3>
+            <p class="text-carbon/70 leading-relaxed">
+              {step.description}
+            </p>
+          </div>
+          
+          {/* Arrow for mobile */}
+          {index < steps.length - 1 && (
+            <div class="md:hidden flex justify-center my-6">
+              <div class="text-4xl text-vermillion">↓</div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 text-center">
+      <div class="inline-block bg-matcha/10 rounded-mochibox-lg p-6 max-w-2xl">
+        <p class="text-carbon/80 flex items-center justify-center gap-2">
+          <span class="text-2xl">🎬</span>
+          <span class="font-medium">Próximamente: video demostrativo del proceso completo</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -8,19 +8,22 @@ export default {
         padding: "1rem",
       },
       fontFamily: {
-        sans: ["Poppins", "sans-serif"],
-      },
-      aria: {
-        current: 'current="page"',
+        display: ["Zen Maru Gothic", "Noto Serif JP", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
       },
       colors: {
-        bkg: "#fff",
-        muted: "#F6EBDA",
-        accent1: "#FFBD7F",
-        accent2: "#A0583C",
-        dark2: "#835E4C",
-        dark1: "#2F2105",
-        text: "#000",
+        'sakura-light': '#FFE6EF',
+        'sakura-medium': '#F7A7C1',
+        'plum-soft': '#A05C78',
+        'carbon': '#141414',
+        'ivory': '#FFF9FB',
+        'mist-gray': '#EDE6EC',
+      },
+      borderRadius: {
+        'component': '16px',
+      },
+      lineHeight: {
+        'relaxed': '1.6',
       },
     },
   },

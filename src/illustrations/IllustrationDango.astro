@@ -1,0 +1,68 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<svg class={className} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow-dango" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-color="#F7C5CC" flood-opacity="0.7"/>
+    </filter>
+    <linearGradient id="dango-stick" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D7CCC8" />
+      <stop offset="100%" stop-color="#BCAAA4" />
+    </linearGradient>
+  </defs>
+  <g filter="url(#shadow-dango)">
+    <!-- Stick -->
+    <rect x="30" y="40" width="4" height="16" rx="2" fill="url(#dango-stick)" />
+    
+    <!-- Dango balls -->
+    <g class="animate-float" style="animation-duration: 4s">
+      <!-- Top dango (pink) -->
+      <circle cx="32" cy="24" r="10" fill="#F8BBD0" stroke="#fff" stroke-width="2">
+        <animate attributeName="cy" values="24;22;24" dur="3s" repeatCount="indefinite" />
+      </circle>
+      
+      <!-- Middle dango (white) -->
+      <circle cx="32" cy="38" r="12" fill="#fff" stroke="#F5F5F5" stroke-width="2">
+        <animate attributeName="cy" values="38;36;38" dur="3.5s" repeatCount="indefinite" begin="0.2s"/>
+      </circle>
+      
+      <!-- Bottom dango (green) -->
+      <circle cx="32" cy="56" r="10" fill="#A5D6A7" stroke="#fff" stroke-width="2">
+        <animate attributeName="cy" values="56;54;56" dur="3.2s" repeatCount="indefinite" begin="0.4s"/>
+      </circle>
+    </g>
+    
+    <!-- Decorative elements -->
+    <g class="animate-float" style="animation-duration: 5s">
+      <circle cx="15" cy="15" r="2" fill="#F8BBD0" opacity="0.8">
+        <animate attributeName="r" values="2;2.5;2" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="50" cy="20" r="1.5" fill="#A5D6A7" opacity="0.8">
+        <animate attributeName="r" values="1.5;2;1.5" dur="3.5s" repeatCount="indefinite" begin="0.3s"/>
+      </circle>
+    </g>
+  </g>
+</svg>
+
+<style>
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(2px, -2px); }
+    50% { transform: translate(-2px, 2px); }
+    75% { transform: translate(3px, -1px); }
+  }
+  .animate-smile {
+    animation: smile 4s ease-in-out infinite;
+  }
+  @keyframes smile {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+</style>

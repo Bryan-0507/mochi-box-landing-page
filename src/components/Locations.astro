@@ -1,0 +1,75 @@
+---
+const locations = [
+  {
+    zone: "Zona 10",
+    places: ["Universidad Francisco Marroquín", "Oakland Mall", "Edificio Empresarial Torre II"]
+  },
+  {
+    zone: "Zona 15",
+    places: ["Universidad del Valle", "Centro Comercial Pradera Concepción"]
+  },
+  {
+    zone: "Zona 4",
+    places: ["Campus Central USAC", "Centro Comercial Tikal Futura"]
+  }
+];
+---
+
+<section id="ubicaciones" class="py-16 md:py-24 bg-gradient-to-br from-vermillion/5 via-white to-sakura/5">
+  <div class="container px-4">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-carbon mb-4">
+        Encuéntranos en <span class="text-vermillion">Guatemala</span>
+      </h2>
+      <p class="text-lg text-carbon/70 max-w-2xl mx-auto">
+        Nuestras máquinas están estratégicamente ubicadas para tu conveniencia
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {locations.map((location) => (
+          <div class="bg-white rounded-mochibox-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 border-l-4 border-vermillion">
+            <h3 class="text-2xl font-display font-bold text-carbon mb-4 flex items-center gap-2">
+              📍 {location.zone}
+            </h3>
+            <ul class="space-y-2">
+              {location.places.map((place) => (
+                <li class="text-carbon/80 flex items-start gap-2">
+                  <span class="text-matcha mt-1">✓</span>
+                  <span>{place}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="bg-white rounded-mochibox-lg p-8 md:p-12 max-w-3xl mx-auto shadow-lg border-2 border-carbon/10">
+      <div class="text-center">
+        <h3 class="text-2xl md:text-3xl font-display font-bold text-carbon mb-4">
+          ¿Quieres <span class="text-vermillion">Mochibox</span> en tu ubicación?
+        </h3>
+        <p class="text-carbon/70 mb-6 max-w-xl mx-auto">
+          Si eres administrador de un edificio, universidad o centro comercial, contáctanos para llevar Mochibox a tu espacio.
+        </p>
+        <a
+          href="#contacto"
+          class="inline-block bg-vermillion hover:bg-vermillion/90 text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus-visible:ring-4 ring-vermillion/50"
+        >
+          Solicitar máquina para mi ubicación
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 text-center">
+      <div class="inline-block bg-matcha/10 rounded-mochibox-lg p-6">
+        <p class="text-carbon/80 flex items-center justify-center gap-2">
+          <span class="text-2xl">🗺️</span>
+          <span class="font-medium">Próximamente: mapa interactivo con todas las ubicaciones</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

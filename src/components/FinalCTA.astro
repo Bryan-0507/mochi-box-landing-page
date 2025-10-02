@@ -1,0 +1,57 @@
+---
+---
+
+<section class="py-20 md:py-32 bg-gradient-to-br from-vermillion/10 via-sakura/10 to-matcha/10 relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 opacity-20">
+    <div class="absolute top-10 left-10 text-9xl">🍡</div>
+    <div class="absolute bottom-10 right-10 text-9xl">🍵</div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-9xl">🌸</div>
+  </div>
+
+  <div class="container px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-carbon mb-6 leading-tight">
+        Tu próximo antojo japonés te queda a <span class="text-vermillion">unos pasos</span>.
+      </h2>
+      
+      <p class="text-xl md:text-2xl text-carbon/80 mb-10">
+        Explora sabores únicos hoy mismo
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 items-center justify-center">
+        <a
+          href="#ubicaciones"
+          class="bg-vermillion hover:bg-vermillion/90 text-white font-semibold px-10 py-5 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 focus:outline-none focus-visible:ring-4 ring-vermillion/50 text-lg"
+        >
+          Encontrar máquina cercana
+        </a>
+        
+        <button
+          id="newsletter-cta"
+          class="bg-white hover:bg-carbon/5 text-carbon font-semibold px-10 py-5 rounded-full border-2 border-carbon shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus-visible:ring-4 ring-carbon/50 text-lg"
+        >
+          Suscribirme a novedades
+        </button>
+      </div>
+
+      <p class="text-sm text-carbon/60 mt-6">
+        🎌 Únete a la comunidad de amantes de la cultura japonesa
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const newsletterCTA = document.querySelector("#newsletter-cta") as HTMLButtonElement;
+  
+  newsletterCTA?.addEventListener("click", () => {
+    const footer = document.querySelector("footer");
+    footer?.scrollIntoView({ behavior: "smooth" });
+    
+    // Focus on newsletter input after scroll
+    setTimeout(() => {
+      const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
+      emailInput?.focus();
+    }, 500);
+  });
+</script>

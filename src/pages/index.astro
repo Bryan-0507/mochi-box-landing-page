@@ -1,10 +1,16 @@
 ---
-import About from "../components/About.astro";
-import Hero from "../components/Hero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import WhatWeWillOffer from "../components/WhatWeWillOffer.astro";
+import HowItWillWork from "../components/HowItWillWork.astro";
+import Products from "../components/Products.astro";
 ---
 
 <BaseLayout>
-  <Hero />
-  <About />
+  <main>
+    <Hero />
+    <WhatWeWillOffer />
+    <HowItWillWork />
+    <Products />
+  </main>
 </BaseLayout>

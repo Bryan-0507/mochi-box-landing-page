@@ -1,0 +1,84 @@
+---
+const menuItems = [
+  {
+    emoji: "🍡",
+    name: "Mochi de Matcha",
+    description: "Suave y cremoso con auténtico té verde japonés",
+    price: "Q18"
+  },
+  {
+    emoji: "🌺",
+    name: "Mochi Tropical",
+    description: "Edición especial con frutas de temporada",
+    price: "Q20"
+  },
+  {
+    emoji: "🍢",
+    name: "Dango Clásico",
+    description: "Tres bolitas tradicionales con salsa mitarashi",
+    price: "Q15"
+  },
+  {
+    emoji: "🍰",
+    name: "Japanese Cheesecake",
+    description: "Esponjoso y ligero, estilo Osaka",
+    price: "Q25"
+  },
+  {
+    emoji: "🥤",
+    name: "Ramune",
+    description: "Bebida gaseosa japonesa en sabores únicos",
+    price: "Q12"
+  },
+  {
+    emoji: "🍵",
+    name: "Té Matcha Frío",
+    description: "Refrescante y energizante",
+    price: "Q18"
+  }
+];
+---
+
+<section id="menu" class="py-16 md:py-24 bg-gradient-to-br from-matcha/5 via-white to-sakura/5">
+  <div class="container px-4">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-carbon mb-4">
+        Menú <span class="text-vermillion">destacado</span>
+      </h2>
+      <p class="text-lg text-carbon/70 mb-6">
+        Explora nuestros sabores más populares
+      </p>
+      <div class="inline-block bg-vermillion/10 rounded-full px-6 py-2">
+        <p class="text-carbon font-semibold">
+          Desde <span class="text-vermillion text-xl">Q15</span> | Combos desde <span class="text-vermillion text-xl">Q25</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
+      {menuItems.map((item) => (
+        <div class="bg-white rounded-mochibox-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-vermillion/30 group">
+          <div class="text-7xl mb-4 text-center group-hover:scale-110 transition-transform duration-300">
+            {item.emoji}
+          </div>
+          <h3 class="text-xl font-display font-semibold text-carbon mb-2 text-center">
+            {item.name}
+          </h3>
+          <p class="text-carbon/70 text-center mb-4 text-sm leading-relaxed">
+            {item.description}
+          </p>
+          <div class="text-center">
+            <span class="text-2xl font-bold text-vermillion">{item.price}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center">
+      <div class="inline-flex items-center gap-2 bg-matcha text-white px-6 py-2 rounded-full">
+        <span class="text-xl">🌟</span>
+        <span class="font-semibold">Nuevas ediciones y sabores cada mes</span>
+      </div>
+    </div>
+  </div>
+</section>

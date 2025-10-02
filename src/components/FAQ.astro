@@ -1,0 +1,80 @@
+---
+const faqs = [
+  {
+    question: "¿Qué métodos de pago aceptan?",
+    answer: "Aceptamos todos los pagos digitales contactless: tarjetas de crédito/débito, Apple Pay, Google Pay y pagos con QR."
+  },
+  {
+    question: "¿Cómo garantizan la frescura?",
+    answer: "Todas nuestras máquinas cuentan con refrigeración profesional y sistema de control de caducidad. Los productos se rotan constantemente para garantizar máxima frescura."
+  },
+  {
+    question: "¿Tienen opciones sin lácteos o vegetarianas?",
+    answer: "Sí, varios de nuestros productos son aptos para vegetarianos y algunos no contienen lácteos. Revisa el ícono en el menú de la máquina para identificarlos fácilmente."
+  },
+  {
+    question: "¿Cómo sé dónde hay una máquina?",
+    answer: "Usa el botón 'Encontrar máquina cercana' en nuestra página para ver todas las ubicaciones disponibles en Guatemala."
+  },
+  {
+    question: "¿Cada cuánto cambian sabores?",
+    answer: "Lanzamos ediciones especiales y sabores de temporada mensualmente. Síguenos en redes sociales para enterarte de las novedades."
+  }
+];
+---
+
+<section id="faq" class="py-16 md:py-24 bg-gradient-to-br from-sakura/5 via-white to-matcha/5">
+  <div class="container px-4">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-carbon mb-4">
+        Preguntas <span class="text-vermillion">frecuentes</span>
+      </h2>
+      <p class="text-lg text-carbon/70 max-w-2xl mx-auto">
+        Todo lo que necesitas saber sobre Mochibox
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-4">
+      {faqs.map((faq, index) => (
+        <details class="bg-white rounded-mochibox-lg shadow-md hover:shadow-lg transition-all duration-300 border-2 border-carbon/5 group">
+          <summary class="cursor-pointer p-6 font-display font-semibold text-lg text-carbon flex items-center justify-between group-hover:text-vermillion transition-colors">
+            <span class="flex items-start gap-3">
+              <span class="text-vermillion flex-shrink-0">❓</span>
+              <span>{faq.question}</span>
+            </span>
+            <span class="text-2xl text-vermillion ml-4 flex-shrink-0">+</span>
+          </summary>
+          <div class="px-6 pb-6 pt-2">
+            <p class="text-carbon/80 leading-relaxed pl-9">
+              {faq.answer}
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <div class="mt-12 text-center">
+      <p class="text-carbon/70 mb-4">¿Tienes más preguntas?</p>
+      <a
+        href="#contacto"
+        class="inline-block text-vermillion font-semibold hover:underline"
+      >
+        Contáctanos →
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  details[open] summary span:last-child {
+    transform: rotate(45deg);
+  }
+  
+  summary {
+    list-style: none;
+  }
+  
+  summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

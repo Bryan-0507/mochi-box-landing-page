@@ -1,0 +1,90 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<svg class={`${className} group`} viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .float {
+      animation: float 4s ease-in-out infinite;
+    }
+    .float-slow {
+      animation: float 6s ease-in-out infinite;
+    }
+    .pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    .spin-slow {
+      animation: spin 30s linear infinite;
+      transform-origin: center;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+  
+  <!-- Background with gradient -->
+  <defs>
+    <radialGradient id="qualityGradient" cx="0" cy="0" r="1" gradientTransform="translate(64 64) rotate(90) scale(60)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF0F5"/>
+      <stop offset="1" stop-color="#FFE6ED"/>
+    </radialGradient>
+    
+    <linearGradient id="chefHatGradient" x1="64" y1="30" x2="64" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white"/>
+      <stop offset="1" stop-color="#F0F0F0"/>
+    </linearGradient>
+  </defs>
+  
+  <circle cx="64" cy="64" r="60" fill="url(#qualityGradient)" class="group-hover:opacity-90 transition-opacity duration-300"/>
+  
+  <!-- Premium dessert base -->
+  <g class="float">
+    <path d="M64 40C64 40 50 30 40 40C30 50 40 60 50 70C60 80 64 100 64 100C64 100 68 80 78 70C88 60 98 50 88 40C78 30 64 40 64 40Z" 
+          fill="#FFB6C1" class="group-hover:fill-[#FF9EBB] transition-colors duration-300"/>
+  </g>
+  
+  <!-- Chef hat with animation -->
+  <g class="group-hover:-translate-y-1 transition-transform duration-300">
+    <path d="M40 40C40 40 45 35 50 40C55 45 50 50 50 50L40 40Z" fill="url(#chefHatGradient)" class="group-hover:opacity-95 transition-opacity duration-300"/>
+    <path d="M88 40C88 40 83 35 78 40C73 45 78 50 78 50L88 40Z" fill="url(#chefHatGradient)" class="group-hover:opacity-95 transition-opacity duration-300"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <g class="float-slow">
+    <circle cx="45" cy="50" r="3" fill="#FFD700" class="pulse"/>
+    <circle cx="83" cy="50" r="3" fill="#FFD700" class="pulse" style="animation-delay: 0.5s"/>
+    <circle cx="64" cy="45" r="3" fill="#FFD700" class="pulse" style="animation-delay: 1s"/>
+  </g>
+  
+  <!-- Sparkles with animation -->
+  <g class="opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+    <path d="M30 40L32 42L34 40L32 38L30 40Z" fill="#FFD700" class="spin-slow"/>
+    <path d="M100 90L102 92L104 90L102 88L100 90Z" fill="#FFD700" class="spin-slow" style="animation-duration: 40s"/>
+    <path d="M40 100L42 102L44 100L42 98L40 100Z" fill="#FFD700" class="spin-slow" style="animation-duration: 35s"/>
+    <path d="M90 30L92 32L94 30L92 28L90 30Z" fill="#FFD700" class="spin-slow" style="animation-duration: 45s"/>
+  </g>
+  
+  <!-- Floating dots -->
+  <g class="opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+    <circle cx="30" cy="30" r="1.5" fill="#FF9EBB" class="float"/>
+    <circle cx="100" cy="100" r="1.5" fill="#B5EAD7" class="float" style="animation-delay: 0.5s"/>
+    <circle cx="100" cy="30" r="1.5" fill="#C7CEEA" class="float" style="animation-delay: 1s"/>
+    <circle cx="30" cy="100" r="1.5" fill="#FFD1DC" class="float" style="animation-delay: 1.5s"/>
+  </g>
+  
+  <!-- Shine effect on hover -->
+  <circle cx="64" cy="64" r="60" fill="white" fill-opacity="0" 
+          class="group-hover:fill-opacity-10 transition-all duration-700" 
+          style="mix-blend-mode: overlay"/>
+</svg>

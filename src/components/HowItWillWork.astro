@@ -1,0 +1,89 @@
+---
+import IllustrationScreen from '../illustrations/IllustrationScreen.astro';
+import IllustrationPaymentStep from '../illustrations/IllustrationPaymentStep.astro';
+import IllustrationEnjoy from '../illustrations/IllustrationEnjoy.astro';
+
+const steps = [
+  {
+    component: IllustrationScreen,
+    text: "Elige en la pantalla",
+    description: "Selecciona tus postres y bebidas favoritas con nuestra interfaz intuitiva y amigable."
+  },
+  {
+    component: IllustrationPaymentStep,
+    text: "Paga sin fricción",
+    description: "Pago rápido y seguro con múltiples métodos de pago digitales."
+  },
+  {
+    component: IllustrationEnjoy,
+    text: "Disfruta al instante",
+    description: "Recoge tu pedido fresco y listo para disfrutar en segundos."
+  },
+];
+---
+
+<section id="how-it-will-work" class="py-20 md:py-28 bg-plum-soft/5">
+  <div class="container">
+    <div class="max-w-2xl mx-auto text-center mb-12 md:mb-16">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-plum-soft mb-4">
+        ¿Cómo funcionará?
+      </h2>
+      <p class="text-carbon/80">
+        Un proceso simple y rápido para satisfacer tus antojos en cualquier momento del día.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {steps.map((step, index) => (
+        <div class="group relative">
+          <!-- Decorative element -->
+          <div class="absolute -inset-1 bg-gradient-to-r from-plum-soft/20 to-sakura-medium/20 rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-300"></div>
+          
+          <div class="relative bg-white p-6 rounded-2xl h-full flex flex-col items-center text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <!-- Step number -->
+            <div class="w-10 h-10 rounded-full bg-plum-soft/10 text-plum-soft flex items-center justify-center font-bold mb-4 group-hover:bg-plum-soft group-hover:text-white transition-colors">
+              {index + 1}
+            </div>
+            
+            <!-- Illustration -->
+            <div class="w-32 h-32 mb-6 flex items-center justify-center">
+              <step.component class="w-full h-full" />
+            </div>
+            
+            <!-- Content -->
+            <h3 class="text-xl font-bold text-carbon mb-2 group-hover:text-plum-soft transition-colors">
+              {step.text}
+            </h3>
+            <p class="text-carbon/70 text-sm">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animation for the step cards */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Apply staggered animations */
+  .step-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .step-card:nth-child(1) { animation-delay: 0.1s; }
+  .step-card:nth-child(2) { animation-delay: 0.3s; }
+  .step-card:nth-child(3) { animation-delay: 0.5s; }
+</style>

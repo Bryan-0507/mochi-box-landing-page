@@ -1,0 +1,60 @@
+---
+const features = [
+  {
+    icon: "🕐",
+    title: "Disponibilidad 24/7",
+    description: "En ubicaciones estratégicas, siempre que lo necesites."
+  },
+  {
+    icon: "🍡",
+    title: "Variedad rotativa",
+    description: "Mochi, dango, cheesecake japonés, ramune, té matcha, té verde, café frío."
+  },
+  {
+    icon: "❄️",
+    title: "Frescura garantizada",
+    description: "Refrigeración y control de caducidad en cada producto."
+  },
+  {
+    icon: "💳",
+    title: "Compra sin fricción",
+    description: "Pagos digitales y experiencia de usuario rápida."
+  },
+  {
+    icon: "🎁",
+    title: "Combos especiales",
+    description: "Postre + bebida a precio especial."
+  },
+  {
+    icon: "🌱",
+    title: "Empaques premium",
+    description: "Biodegradables con diseño cuidado."
+  }
+];
+---
+
+<section class="py-16 md:py-24 bg-white">
+  <div class="container px-4">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-carbon mb-4">
+        Postres y bebidas japonesas <span class="text-vermillion">auténticas</span>, al instante.
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {features.map((feature) => (
+        <div class="bg-white border-2 border-carbon/10 rounded-mochibox-lg p-6 hover:border-vermillion/50 hover:shadow-lg transition-all duration-300 group">
+          <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+            {feature.icon}
+          </div>
+          <h3 class="text-xl font-display font-semibold text-carbon mb-2">
+            {feature.title}
+          </h3>
+          <p class="text-carbon/70 leading-relaxed">
+            {feature.description}
+          </p>
+        </div>
+      ))}z
+    </div>
+  </div>
+</section>
