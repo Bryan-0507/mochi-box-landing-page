@@ -14,12 +14,6 @@ const products = [
     colors: "from-pink-100 to-pink-200"
   },
   {
-    component: IllustrationDango,
-    name: "Dango",
-    description: "Bolitas de arroz dulce en brocheta, una delicia tradicional japonesa.",
-    colors: "from-purple-100 to-purple-200"
-  },
-  {
     component: IllustrationCheesecake,
     name: "Japanese Cheesecake",
     description: "Suave y esponjoso pastel de queso al estilo japonés.",
@@ -57,8 +51,10 @@ const products = [
       </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      {products.map((product, index) => (
+    <div class="max-w-6xl mx-auto">
+      <!-- First row: 3 products -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+        {products.slice(0, 3).map((product, index) => (
         <div class="group relative h-full">
           <!-- Decorative background on hover -->
           <div class={`absolute -inset-1 bg-gradient-to-r from-plum-soft/10 to-sakura-medium/10 rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-300`}></div>
@@ -79,6 +75,32 @@ const products = [
           </div>
         </div>
       ))}
+      </div>
+      
+      <!-- Second row: 2 products -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {products.slice(3).map((product, index) => (
+        <div class="group relative h-full">
+          <!-- Decorative background on hover -->
+          <div class={`absolute -inset-1 bg-gradient-to-r from-plum-soft/10 to-sakura-medium/10 rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-300`}></div>
+          
+          <div class="relative bg-white p-6 rounded-2xl h-full flex flex-col items-center text-center border border-plum-soft/10 hover:border-plum-soft/30 transition-all duration-300 hover:-translate-y-1">
+            <!-- Illustration with gradient background -->
+            <div class={`w-32 h-32 mb-6 flex items-center justify-center rounded-full bg-gradient-to-br ${product.colors} p-2`}>
+              <product.component class="w-full h-full" />
+            </div>
+            
+            <!-- Content -->
+            <h3 class="text-xl font-bold text-carbon mb-2 group-hover:text-plum-soft transition-colors">
+              {product.name}
+            </h3>
+            <p class="text-carbon/70 text-sm mb-4">
+              {product.description}
+            </p>
+          </div>
+        </div>
+      ))}
+      </div>
     </div>
   </div>
 </section>
